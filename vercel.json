@@ -1,0 +1,64 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "frontend/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/health",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/upload",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/vin/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/decode-vin/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/compare",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/chat",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/sample-contract/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/contract/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/negotiate/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "frontend/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/$1"
+    }
+  ]
+}
+

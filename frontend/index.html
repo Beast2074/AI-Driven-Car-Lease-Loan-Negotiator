@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Lease & Loan AI Negotiator — Deal Intelligence & Audit</title>
+  
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/static/style.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            dark: {
+              950: '#07090e',
+              900: '#0c101a',
+              850: '#111726',
+              800: '#172033',
+              700: '#202c45',
+            },
+            brand: {
+              red: '#ff3b30',
+              crimson: '#e11d48',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              cyan: '#06b6d4'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-dark-950 text-slate-100 font-sans antialiased min-h-screen selection:bg-brand-crimson selection:text-white flex flex-col">
+
+  <!-- ========================================================================= -->
+  <!-- EXECUTIVE HEADER -->
+  <!-- ========================================================================= -->
+  <header class="border-b border-slate-800/80 bg-dark-900/95 backdrop-blur-md sticky top-0 z-40 px-5 lg:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center space-x-3.5">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-slate-800 to-slate-700 border border-slate-600/50 flex items-center justify-center text-red-500 font-bold shadow-md">
+        <i class="fa-solid fa-car-side text-base"></i>
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="font-extrabold text-base tracking-tight text-white">Car Lease & Loan AI Negotiator</span>
+          <span id="marketFeedBadge" class="text-[10px] font-mono text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 rounded px-1.5 py-0.5 flex items-center space-x-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>LIVE FED FEED</span>
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-400 hidden sm:block">Automotive Contract Forensic Intelligence & Deal Audit Terminal</p>
+      </div>
+    </div>
+
+    <!-- Header Right Action -->
+    <div class="flex items-center space-x-4">
+      <div class="hidden md:flex items-center space-x-4 text-xs font-mono text-slate-400 border-r border-slate-800 pr-4">
+        <span>MARKET BENCHMARK: <strong id="headerMarketApr" class="text-slate-200">7.54% APR</strong></span>
+        <span>DOC FEE CEILING: <strong id="headerDocCeiling" class="text-slate-200">$250</strong></span>
+      </div>
+
+      <!-- Private Admin Security Access -->
+      <button id="openAdminBtn" title="Security & Audit Telemetry" class="p-2 w-8 h-8 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-400 hover:text-red-400 border border-slate-700 transition flex items-center justify-center">
+        <i class="fa-solid fa-shield-halved text-xs"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN APP WRAPPER: SIDEBAR + CONTENT -->
+  <!-- ========================================================================= -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- ======================================================================= -->
+    <!-- LEFT NAVIGATION SIDEBAR (Exact Match to Requested Structure) -->
+    <!-- ======================================================================= -->
+    <aside class="w-64 border-r border-slate-800/80 bg-dark-900/90 flex flex-col justify-between select-none">
+      <div class="p-4">
+        <!-- Section Title matching image -->
+        <div class="text-xs font-bold text-slate-400 tracking-wider uppercase px-3 mb-3">
+          Menu
+        </div>
+
+        <!-- Menu Navigation List -->
+        <div class="space-y-1" id="menuNavList">
+          <!-- 1. Contract Analysis (Active by default) -->
+          <button data-tab="contract-analysis" class="nav-item active w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-white">
+            <span class="radio-dot w-4 h-4 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+              <span class="inner-dot w-2 h-2 rounded-full bg-transparent"></span>
+            </span>
+            <span class="label">Contract Analysis</span>
+          </button>
+
+          <!-- 2. VIN Assistant -->
+          <button data-tab="vin-assistant" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-300 hover:text-white">
+            <span class="radio-dot w-4 h-4 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+              <span class="inner-dot w-2 h-2 rounded-full bg-transparent"></span>
+            </span>
+            <span class="label">VIN Assistant</span>
+          </button>
+
+          <!-- 3. Contract Comparison -->
+          <button data-tab="contract-comparison" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-300 hover:text-white">
+            <span class="radio-dot w-4 h-4 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+              <span class="inner-dot w-2 h-2 rounded-full bg-transparent"></span>
+            </span>
+            <span class="label">Contract Comparison</span>
+          </button>
+
+          <!-- 4. Single Unified Chatbot -->
+          <button data-tab="chatbots" class="nav-item w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-300 hover:text-white">
+            <span class="radio-dot w-4 h-4 rounded-full border-2 border-slate-500 flex items-center justify-center flex-shrink-0">
+              <span class="inner-dot w-2 h-2 rounded-full bg-transparent"></span>
+            </span>
+            <span class="label">AI Chatbot</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sidebar Footer Status Card -->
+      <div class="p-4 border-t border-slate-800/80 space-y-2.5">
+        <div class="p-3 rounded-xl bg-dark-850 border border-slate-800/80 text-xs">
+          <div class="flex items-center justify-between text-slate-300 font-semibold mb-1">
+            <span>Audit Protocol</span>
+            <span class="text-[10px] text-emerald-400 font-mono">v2.4 ONLINE</span>
+          </div>
+          <div class="text-[11px] text-slate-400">Statutory caps, dealer add-on forensic analysis, & APR risk algorithms active.</div>
+        </div>
+
+        <button onclick="openAdminModal()" class="w-full text-left text-xs text-slate-400 hover:text-slate-200 flex items-center justify-between px-2 py-1 transition">
+          <span class="flex items-center space-x-2">
+            <i class="fa-solid fa-lock text-[10px] text-slate-400"></i>
+            <span>System Telemetry</span>
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">Restricted</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ======================================================================= -->
+    <!-- RIGHT CONTENT AREA -->
+    <!-- ======================================================================= -->
+    <main class="flex-1 overflow-y-auto bg-dark-950 p-4 lg:p-7 flex flex-col space-y-6">
+
+      <!-- ===================================================================== -->
+      <!-- EXECUTIVE DEAL DISTRIBUTION & MARKET BENCHMARK TERMINAL -->
+      <!-- ===================================================================== -->
+      <div class="relative w-full rounded-2xl overflow-hidden border border-slate-800 bg-gradient-to-b from-dark-900 to-dark-950 shadow-xl p-5 flex flex-col justify-between">
+        
+        <!-- Terminal Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3 mb-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></div>
+            <div>
+              <h3 class="text-xs font-bold text-slate-200 tracking-wider uppercase font-mono">National Auto Financing Benchmark Matrix</h3>
+              <p id="matrixSourceLabel" class="text-[11px] text-slate-400">Live Federal Reserve G.19 Consumer Credit & U.S. Treasury Market Index</p>
+            </div>
+          </div>
+          <div id="radarStatusTag" class="px-2.5 py-1 rounded bg-dark-850 border border-slate-700 text-[10px] font-mono text-slate-300">
+            AWAITING CONTRACT DATA
+          </div>
+        </div>
+
+        <!-- Terminal Body: Chart + KPI Matrix -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-center">
+          
+          <!-- Left 2 Cols: Interactive Distribution Curve (Canvas) -->
+          <div class="lg:col-span-2 relative h-40 bg-dark-950/70 rounded-xl border border-slate-800/80 p-2 overflow-hidden flex flex-col justify-between">
+            <canvas id="radarCanvas" class="w-full h-full cursor-crosshair"></canvas>
+            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 px-2 pt-1 border-t border-slate-850">
+              <span id="curvePredatoryLabel">PREDATORY MARKUP (>10% APR)</span>
+              <span id="curveMedianLabel">FED MEDIAN (7.54% APR • $535/MO)</span>
+              <span id="curvePrimeLabel">PRIME BUY-RATE (&lt;5.75% APR)</span>
+            </div>
+          </div>
+
+          <!-- Right 1 Col: Key Institutional Benchmarks -->
+          <div class="grid grid-cols-2 gap-2.5 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-dark-900 border border-slate-800">
+              <div class="text-[10px] text-slate-400">PRIME 60-MO APR</div>
+              <div id="matrixApr" class="text-base font-bold text-white mt-0.5">7.54%</div>
+              <div class="text-[10px] text-emerald-400">Federal Reserve G.19</div>
+            </div>
+            <div class="p-3 rounded-xl bg-dark-900 border border-slate-800">
+              <div class="text-[10px] text-slate-400">AVG LEASE PAYMENT</div>
+              <div id="matrixPayment" class="text-base font-bold text-white mt-0.5">$535<span class="text-xs font-normal">/mo</span></div>
+              <div class="text-[10px] text-slate-400">US National Median</div>
+            </div>
+            <div class="p-3 rounded-xl bg-dark-900 border border-slate-800">
+              <div class="text-[10px] text-slate-400">DOC FEE CEILING</div>
+              <div id="matrixDocFee" class="text-base font-bold text-white mt-0.5">$250</div>
+              <div class="text-[10px] text-amber-400">Capped States Legal Norm</div>
+            </div>
+            <div class="p-3 rounded-xl bg-dark-900 border border-slate-800">
+              <div class="text-[10px] text-slate-400">MONEY FACTOR BASE</div>
+              <div id="matrixMoneyFactor" class="text-base font-bold text-white mt-0.5">0.00239</div>
+              <div class="text-[10px] text-slate-400">Tier 1 Wholesale Base</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- TAB PANE 1: CONTRACT ANALYSIS -->
+      <!-- ===================================================================== -->
+      <section id="pane-contract-analysis" class="tab-pane space-y-6">
+        
+        <!-- Contract Upload Card -->
+        <div class="p-6 rounded-2xl bg-dark-900 border border-slate-800 shadow-xl space-y-4">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+              <span>Contract Forensic Audit & Fairness Scoring</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Upload your vehicle lease or purchase agreement to extract terms, identify unbundled junk fees, and calculate market deal health.</p>
+          </div>
+
+          <!-- Drag and Drop Dropzone -->
+          <div id="dropzone" class="relative border-2 border-dashed border-slate-700/80 hover:border-red-500/70 rounded-xl p-8 text-center bg-dark-950/70 transition cursor-pointer group">
+            <input type="file" id="contractFileInput" accept=".pdf,.png,.jpg,.jpeg,.txt" class="hidden">
+            <div class="space-y-2.5 pointer-events-none">
+              <div class="w-11 h-11 rounded-xl bg-dark-850 border border-slate-700 mx-auto flex items-center justify-center text-slate-300 group-hover:text-red-400 group-hover:border-red-500/40 transition">
+                <i class="fa-solid fa-file-arrow-up text-lg"></i>
+              </div>
+              <div class="text-sm font-semibold text-slate-200">
+                <span>Select vehicle contract document or <span class="text-red-400 underline decoration-red-400/50">browse files</span></span>
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-1.5 text-[11px] text-slate-400 pt-1 font-mono">
+                <span class="px-2 py-0.5 rounded bg-dark-900 border border-slate-800">PDF</span>
+                <span class="px-2 py-0.5 rounded bg-dark-900 border border-slate-800">Scanned Bill of Sale</span>
+                <span class="px-2 py-0.5 rounded bg-dark-900 border border-slate-800">Promissory Note</span>
+                <span class="px-2 py-0.5 rounded bg-dark-900 border border-slate-800">PNG / JPEG</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loading Spinner Bar -->
+          <div id="analysisLoading" class="hidden p-4 rounded-xl bg-dark-850 border border-slate-700 flex items-center space-x-3">
+            <i class="fa-solid fa-circle-notch fa-spin text-red-500 text-lg"></i>
+            <div class="flex-1">
+              <div class="text-xs font-semibold text-slate-200" id="analysisLoadingTitle">Analyzing document fine print...</div>
+              <div class="text-[11px] text-slate-400">Parsing interest calculations, capitalized costs, doc charges, and hidden add-ons...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Initial Pre-Analysis Guidance Matrix (Visible before user uploads) -->
+        <div id="preAnalysisGuidance" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-5 rounded-2xl bg-dark-900 border border-slate-800/80 space-y-2">
+            <div class="w-8 h-8 rounded-lg bg-dark-850 border border-slate-700 flex items-center justify-center text-slate-300 text-xs">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider">1. Rate & Term Audit</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">Cross-checks dealer APR and Money Factor against wholesale institutional buy-rates to expose back-end interest rate markups.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-dark-900 border border-slate-800/80 space-y-2">
+            <div class="w-8 h-8 rounded-lg bg-dark-850 border border-slate-700 flex items-center justify-center text-slate-300 text-xs">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider">2. Junk Fee Elimination</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">Scans line-item charges for non-statutory dealer fees: vehicle prep, documentation padding, nitrogen fills, and mandatory etching.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-dark-900 border border-slate-800/80 space-y-2">
+            <div class="w-8 h-8 rounded-lg bg-dark-850 border border-slate-700 flex items-center justify-center text-slate-300 text-xs">
+              <i class="fa-solid fa-file-signature"></i>
+            </div>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider">3. 1-Click Counter-Offer</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">Automatically calculates potential dollar savings and generates an attorney-grade, assertive counter-offer email ready to send to the finance manager.</p>
+          </div>
+        </div>
+
+        <!-- Results Section (Hidden until real upload is processed) -->
+        <div id="analysisResultsContainer" class="hidden space-y-6">
+
+          <!-- Template/Framework Contract Notice (shown only for master agreements) -->
+          <div id="templateContractNotice" class="hidden p-3 rounded-xl bg-blue-500/10 border border-blue-500/30 text-xs text-blue-300 flex items-start space-x-2">
+            <i class="fa-solid fa-circle-info mt-0.5 flex-shrink-0"></i>
+            <div>
+              <strong class="text-blue-200">Framework / Template Document Detected</strong> — This is a Master Loan Facility or statutory form. Specific financial values (APR, EMI) are filled in the individual borrower schedule. Fields show "Per Schedule" where values are blank in this template.
+            </div>
+          </div>
+
+          <!-- 1. Top Fairness Score Banner & Gauges -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            
+            <!-- Overall Score Card -->
+            <div class="p-6 rounded-2xl bg-dark-900 border border-slate-800 flex flex-col justify-between shadow-lg relative overflow-hidden">
+              <div class="flex items-center justify-between text-xs font-medium text-slate-400">
+                <span>Fairness Score</span>
+                <span id="scoreCategoryBadge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"></span>
+              </div>
+              <div class="my-4 text-center">
+                <div class="text-5xl font-extrabold tracking-tight tabular-nums" id="scoreOverallNumber">--</div>
+                <div class="text-[11px] text-slate-400 mt-1 font-mono">0–100 Scale Benchmark</div>
+              </div>
+              <div class="text-xs text-slate-300 text-center font-medium" id="scoreVerdictText">--</div>
+            </div>
+
+            <!-- Price Score Card -->
+            <div class="p-5 rounded-2xl bg-dark-900 border border-slate-800 flex flex-col justify-between shadow-lg">
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>Price Score</span>
+                <span class="text-slate-300 font-mono font-semibold">Max 50</span>
+              </div>
+              <div class="my-2">
+                <div class="text-3xl font-bold text-white tabular-nums" id="scorePriceNumber">--</div>
+                <div class="w-full bg-dark-800 rounded-full h-1.5 mt-2 overflow-hidden">
+                  <div id="barPrice" class="h-1.5 rounded-full bg-blue-500" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-400" id="scorePriceDesc">Indexed against $500 monthly payment benchmark.</div>
+            </div>
+
+            <!-- APR Risk Score Card -->
+            <div class="p-5 rounded-2xl bg-dark-900 border border-slate-800 flex flex-col justify-between shadow-lg">
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>APR Risk Score</span>
+                <span class="text-slate-300 font-mono font-semibold">Max 30</span>
+              </div>
+              <div class="my-2">
+                <div class="text-3xl font-bold text-white tabular-nums" id="scoreRiskNumber">--</div>
+                <div class="w-full bg-dark-800 rounded-full h-1.5 mt-2 overflow-hidden">
+                  <div id="barRisk" class="h-1.5 rounded-full bg-amber-500" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-400" id="scoreRiskDesc">5 pt deduction per 1% APR exceeding 7.5% market rate.</div>
+            </div>
+
+            <!-- Junk Fee Score Card -->
+            <div class="p-5 rounded-2xl bg-dark-900 border border-slate-800 flex flex-col justify-between shadow-lg">
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>Fee Score</span>
+                <span class="text-slate-300 font-mono font-semibold">Max 20</span>
+              </div>
+              <div class="my-2">
+                <div class="text-3xl font-bold text-white tabular-nums" id="scoreFeeNumber">--</div>
+                <div class="w-full bg-dark-800 rounded-full h-1.5 mt-2 overflow-hidden">
+                  <div id="barFee" class="h-1.5 rounded-full bg-emerald-500" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-400" id="scoreFeeDesc">Deducts 5 pts per optional dealer accessory or padding.</div>
+            </div>
+          </div>
+
+          <!-- 2. Two-Column Terms Breakdown & Red Flags -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Left 2 Cols: Extracted Financial Terms -->
+            <div class="lg:col-span-2 p-6 rounded-2xl bg-dark-900 border border-slate-800 shadow-xl space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+                  <i class="fa-solid fa-file-invoice text-slate-400"></i>
+                  <span>Verified Contract Line Items</span>
+                </h3>
+                <span class="text-xs font-mono text-slate-400" id="contractTypeBadge">CONTRACT</span>
+              </div>
+
+              <!-- Terms Table / Key-Value Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs" id="termsGridContainer">
+                <!-- Dynamically filled -->
+              </div>
+
+              <!-- Clause Highlights (Early termination, purchase option, warranty) -->
+              <div class="pt-3 border-t border-slate-800 space-y-2 text-xs" id="clausesContainer">
+                <!-- Dynamically filled -->
+              </div>
+            </div>
+
+            <!-- Right 1 Col: Junk Fees & Red Flags -->
+            <div class="p-6 rounded-2xl bg-dark-900 border border-slate-800 shadow-xl space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+                  <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                  <span>Junk Fees & Risk Items</span>
+                </h3>
+                <span id="riskLevelBadge" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase font-mono"></span>
+              </div>
+
+              <!-- Fees List -->
+              <div class="space-y-2.5" id="junkFeesList">
+                <!-- Dynamically filled -->
+              </div>
+
+              <!-- Actionable Recommendations -->
+              <div class="pt-3 border-t border-slate-800">
+                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 font-mono">Negotiation Leverage</h4>
+                <ul class="text-xs text-slate-400 space-y-1.5 list-disc list-inside" id="recommendationsList">
+                  <!-- Dynamically filled -->
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. AI Counter-Offer Email Script Generator -->
+          <div class="p-6 rounded-2xl bg-gradient-to-r from-dark-900 via-dark-850 to-dark-900 border border-slate-800 shadow-2xl space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+                  <i class="fa-solid fa-envelope-open-text text-red-400"></i>
+                  <span>Dealer Counter-Offer Draft</span>
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Customized negotiation proposal detailing rate matching, fee removals, and targeted monthly payment.</p>
+              </div>
+              <div class="flex items-center space-x-2">
+                <button id="copyEmailBtn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition flex items-center space-x-2">
+                  <i class="fa-solid fa-copy"></i>
+                  <span id="copyBtnText">Copy Proposal</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Email Text Box -->
+            <div class="relative">
+              <pre id="emailScriptBox" class="p-4 rounded-xl bg-dark-950 border border-slate-800 text-xs font-mono text-slate-300 whitespace-pre-wrap leading-relaxed max-h-72 overflow-y-auto selection:bg-red-500 selection:text-white"></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB PANE 2: VIN ASSISTANT -->
+      <!-- ===================================================================== -->
+      <section id="pane-vin-assistant" class="tab-pane hidden space-y-6">
+        
+        <!-- Search Card -->
+        <div class="p-6 rounded-2xl bg-dark-900 border border-slate-800 shadow-xl space-y-4">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+              <span>NHTSA Factory VIN Decoder & Market Valuation</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Query the official federal NHTSA database to verify trim, plant country, body specs, and calculate institutional market pricing.</p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <div class="flex-1 relative">
+              <input type="text" id="vinSearchInput" placeholder="Enter 17-character VIN (found on driver-side door jamb or registration)..." maxlength="17" class="w-full px-4 py-3 rounded-xl bg-dark-950 border border-slate-700 focus:border-slate-500 text-xs font-mono tracking-widest uppercase text-white placeholder-slate-500 outline-none transition">
+            </div>
+            <button id="decodeVinBtn" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-600 transition flex items-center justify-center space-x-2 flex-shrink-0">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Decode & Value</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Initial Guidance Before VIN Query -->
+        <div id="vinInitialPrompt" class="p-8 rounded-2xl bg-dark-900/60 border border-slate-800/80 text-center space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-dark-850 border border-slate-700 mx-auto flex items-center justify-center text-slate-400 text-sm">
+            <i class="fa-solid fa-barcode"></i>
+          </div>
+          <div class="text-xs font-semibold text-slate-300">Ready for VIN Analysis</div>
+          <p class="text-xs text-slate-400 max-w-md mx-auto">Input any 17-character VIN to retrieve federal safety equipment data, manufacturer specs, and algorithmic vehicle depreciation valuation.</p>
+        </div>
+
+        <!-- VIN Results Container (Hidden until user performs search) -->
+        <div id="vinResultsContainer" class="hidden space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Left 2 Cols: Vehicle Specs -->
+            <div class="md:col-span-2 p-6 rounded-2xl bg-dark-900 border border-slate-800 shadow-xl space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div>
+                  <h3 class="text-sm font-bold text-white" id="vinVehicleTitle">Vehicle Information</h3>
+                  <div class="text-xs font-mono text-slate-400" id="vinVehicleSubtitle">-</div>
+                </div>
+                <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-semibold">
+                  NHTSA VERIFIED
+                </span>
+              </div>
+
+              <!-- Specs Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs" id="vinSpecsGrid">
+                <!-- Dynamically filled -->
+              </div>
+            </div>
+
+            <!-- Right 1 Col: Market Valuation Card -->
+            <div class="p-6 rounded-2xl bg-dark-900 border border-slate-800 shadow-xl space-y-4 flex flex-col justify-between">
+              <div>
+                <div class="text-xs font-medium text-slate-400 font-mono">Institutional Market Value</div>
+                <div class="text-3xl font-extrabold text-white my-2 tabular-nums" id="vinFairPrice">$0</div>
+                <div class="text-xs text-slate-400" id="vinMsrpCompare">Depreciation Model Applied</div>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-dark-850 border border-slate-800 space-y-1 text-xs">
+                <div class="font-semibold text-slate-200">Price Target Leverage</div>
+                <p class="text-slate-400 text-[11px]" id="vinLeverageTip">Use this fair wholesale valuation to counter dealer asking prices and eliminate inflated market adjustments.</p>
+              </div>
+
+              <button onclick="startChatWithVin()" class="w-full py-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 text-xs font-semibold text-slate-200 border border-slate-700 transition flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-comments text-slate-400"></i>
+                <span>Discuss Vehicle with Coach</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB PANE 3: CONTRACT COMPARISON -->
+      <!-- ===================================================================== -->
+      <!-- TAB PANE 3: CONTRACT COMPARISON -->
+      <!-- ===================================================================== -->
+      <section id="pane-contract-comparison" class="tab-pane hidden space-y-6">
+        
+        <div class="p-6 rounded-2xl bg-dark-900 border border-slate-800 shadow-xl space-y-6">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+              <i class="fa-solid fa-code-compare text-red-500"></i>
+              <span>Side-by-Side Financing Comparison</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Upload two competing dealer offers or enter terms manually to expose the superior deal, true interest deltas, and total dollar savings.</p>
+          </div>
+
+          <!-- Comparison Upload & Input Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- OFFER A CARD (INDEPENDENT UPLOAD A) -->
+            <div class="p-5 rounded-2xl bg-dark-950 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+                <div class="flex items-center space-x-2">
+                  <div class="w-6 h-6 rounded-md bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs font-mono font-bold">A</div>
+                  <h4 class="font-bold text-white text-xs font-mono uppercase">Offer A (Primary Deal)</h4>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <button type="button" onclick="importFromTab1()" id="btnImportFromTab1" title="Load contract data analyzed in Tab 1" class="text-[10px] font-mono text-blue-400 hover:text-blue-300 border border-blue-500/30 rounded px-2 py-0.5 bg-blue-500/10 transition flex items-center space-x-1">
+                    <i class="fa-solid fa-file-import"></i>
+                    <span>From Tab 1</span>
+                  </button>
+                  <button type="button" onclick="clearOffer('A')" title="Clear Offer A" class="text-[10px] font-mono text-slate-400 hover:text-white border border-slate-700 rounded px-1.5 py-0.5 bg-dark-900 transition">
+                    Reset
+                  </button>
+                  <span id="dealAStatus" class="px-2 py-0.5 rounded text-[10px] font-mono border border-slate-700 bg-dark-900 text-slate-400">READY</span>
+                </div>
+              </div>
+
+              <!-- Dedicated Upload Box for Offer A -->
+              <div id="dropzoneCompareA" class="border-2 border-dashed border-blue-500/30 hover:border-blue-500/80 rounded-xl p-5 text-center bg-blue-500/[0.02] cursor-pointer transition group">
+                <input type="file" id="fileInputA" accept=".pdf,.png,.jpg,.jpeg,.txt" class="hidden">
+                <div class="space-y-2 pointer-events-none">
+                  <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 mx-auto flex items-center justify-center text-blue-400 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-file-arrow-up text-base"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs font-semibold text-white">Upload Offer A Contract</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">Drag PDF, Scanned Agreement, or Image here</div>
+                  </div>
+                  <span class="inline-block mt-1 px-3 py-1 rounded-md bg-blue-600 group-hover:bg-blue-500 text-white text-[11px] font-semibold transition shadow">
+                    Browse Offer A File
+                  </span>
+                </div>
+              </div>
+
+              <!-- Form Fields for Offer A -->
+              <div class="grid grid-cols-2 gap-3 text-xs">
+                <div class="col-span-2">
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Offer / Vehicle Name</label>
+                  <input type="text" id="compAName" placeholder="e.g. 2024 Honda Accord EX" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 font-sans text-xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Monthly Payment ($)</label>
+                  <input type="number" id="compAMonthly" placeholder="485.00" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 font-mono text-xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">APR Rate (%)</label>
+                  <input type="number" step="0.01" id="compAApr" placeholder="6.50" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 font-mono text-xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Term Length (Months)</label>
+                  <input type="number" id="compATerm" placeholder="36" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 font-mono text-xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Down Payment ($)</label>
+                  <input type="number" id="compADown" placeholder="2500" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 font-mono text-xs">
+                </div>
+                <div class="col-span-2">
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Dealer Add-ons / Junk Fees ($)</label>
+                  <input type="number" id="compAFees" placeholder="0.00" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-500 font-mono text-xs">
+                </div>
+              </div>
+            </div>
+
+            <!-- OFFER B CARD (INDEPENDENT UPLOAD B) -->
+            <div class="p-5 rounded-2xl bg-dark-950 border border-slate-800 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+                <div class="flex items-center space-x-2">
+                  <div class="w-6 h-6 rounded-md bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xs font-mono font-bold">B</div>
+                  <h4 class="font-bold text-white text-xs font-mono uppercase">Offer B (Competing Quote)</h4>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <button type="button" onclick="clearOffer('B')" title="Clear Offer B" class="text-[10px] font-mono text-slate-400 hover:text-white border border-slate-700 rounded px-1.5 py-0.5 bg-dark-900 transition">
+                    Reset
+                  </button>
+                  <span id="dealBStatus" class="px-2 py-0.5 rounded text-[10px] font-mono border border-slate-700 bg-dark-900 text-slate-400">READY</span>
+                </div>
+              </div>
+
+              <!-- Dedicated Upload Box for Offer B -->
+              <div id="dropzoneCompareB" class="border-2 border-dashed border-emerald-500/30 hover:border-emerald-500/80 rounded-xl p-5 text-center bg-emerald-500/[0.02] cursor-pointer transition group">
+                <input type="file" id="fileInputB" accept=".pdf,.png,.jpg,.jpeg,.txt" class="hidden">
+                <div class="space-y-2 pointer-events-none">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 mx-auto flex items-center justify-center text-emerald-400 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-file-arrow-up text-base"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs font-semibold text-white">Upload Offer B Contract</div>
+                    <div class="text-[10px] text-slate-400 mt-0.5">Drag PDF, Competing Quote, or Image here</div>
+                  </div>
+                  <span class="inline-block mt-1 px-3 py-1 rounded-md bg-emerald-600 group-hover:bg-emerald-500 text-white text-[11px] font-semibold transition shadow">
+                    Browse Offer B File
+                  </span>
+                </div>
+              </div>
+
+              <!-- Form Fields for Offer B -->
+              <div class="grid grid-cols-2 gap-3 text-xs">
+                <div class="col-span-2">
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Offer / Vehicle Name</label>
+                  <input type="text" id="compBName" placeholder="e.g. Competing Dealer Quote" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500 font-sans text-xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Monthly Payment ($)</label>
+                  <input type="number" id="compBMonthly" placeholder="440.00" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500 font-mono text-xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">APR Rate (%)</label>
+                  <input type="number" step="0.01" id="compBApr" placeholder="5.40" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500 font-mono text-xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Term Length (Months)</label>
+                  <input type="number" id="compBTerm" placeholder="36" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500 font-mono text-xs">
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Down Payment ($)</label>
+                  <input type="number" id="compBDown" placeholder="2000" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500 font-mono text-xs">
+                </div>
+                <div class="col-span-2">
+                  <label class="block text-[11px] text-slate-400 font-mono mb-1">Dealer Add-ons / Junk Fees ($)</label>
+                  <input type="number" id="compBFees" placeholder="0.00" class="w-full bg-dark-900 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500 font-mono text-xs">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Run Audit Action Button -->
+          <div class="pt-2">
+            <button id="btnExecuteCompare" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg flex items-center justify-center space-x-2 transition">
+              <i class="fa-solid fa-scale-balanced"></i>
+              <span>Audit & Compare Both Offers</span>
+            </button>
+          </div>
+
+          <!-- COMPARISON RESULTS VIEW (Hidden until executed) -->
+          <div id="comparisonResultsCard" class="hidden space-y-5 pt-4 border-t border-slate-800">
+            
+            <!-- Verdict Banner -->
+            <div id="compareVerdictBanner" class="p-5 rounded-2xl bg-dark-950 border border-emerald-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-lg flex-shrink-0">
+                  <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div>
+                  <span id="compareWinnerBadge" class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">WINNING CONTRACT</span>
+                  <h3 id="compareWinnerSummary" class="text-base font-extrabold text-white mt-0.5">Offer B provides superior terms</h3>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-[10px] text-slate-400 font-mono">ESTIMATED SAVINGS</div>
+                <div id="compareSavingsValue" class="text-lg font-bold text-emerald-400 font-mono">$1,620.00</div>
+              </div>
+            </div>
+
+            <!-- Comparison Table Matrix -->
+            <div class="rounded-xl border border-slate-800 overflow-hidden bg-dark-950/60">
+              <table class="w-full text-xs text-left">
+                <thead class="bg-dark-850 text-slate-400 font-mono text-[11px] border-b border-slate-800">
+                  <tr>
+                    <th class="p-3">FINANCIAL TERM</th>
+                    <th class="p-3 text-center">OFFER A</th>
+                    <th class="p-3 text-center">OFFER B</th>
+                    <th class="p-3 text-right">AUDIT DELTA</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-850 font-mono">
+                  <tr>
+                    <td class="p-3 text-slate-300 font-sans font-medium">Monthly Installment</td>
+                    <td class="p-3 text-center" id="tblMonthlyA">$0.00</td>
+                    <td class="p-3 text-center" id="tblMonthlyB">$0.00</td>
+                    <td class="p-3 text-right font-bold" id="tblMonthlyDelta">$0.00</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 text-slate-300 font-sans font-medium">Interest Rate (APR)</td>
+                    <td class="p-3 text-center" id="tblAprA">0.0%</td>
+                    <td class="p-3 text-center" id="tblAprB">0.0%</td>
+                    <td class="p-3 text-right font-bold" id="tblAprDelta">0.0%</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 text-slate-300 font-sans font-medium">Financing Term</td>
+                    <td class="p-3 text-center" id="tblTermA">0 mos</td>
+                    <td class="p-3 text-center" id="tblTermB">0 mos</td>
+                    <td class="p-3 text-right" id="tblTermDelta">--</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 text-slate-300 font-sans font-medium">Down Payment</td>
+                    <td class="p-3 text-center" id="tblDownA">$0.00</td>
+                    <td class="p-3 text-center" id="tblDownB">$0.00</td>
+                    <td class="p-3 text-right font-bold" id="tblDownDelta">$0.00</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 text-slate-300 font-sans font-medium">Dealer Add-on / Junk Fees</td>
+                    <td class="p-3 text-center" id="tblFeesA">$0.00</td>
+                    <td class="p-3 text-center" id="tblFeesB">$0.00</td>
+                    <td class="p-3 text-right font-bold" id="tblFeesDelta">$0.00</td>
+                  </tr>
+                  <tr class="bg-dark-900/40">
+                    <td class="p-3 text-slate-200 font-sans font-bold">Total Estimated Out-of-Pocket</td>
+                    <td class="p-3 text-center font-bold" id="tblTotalA">$0.00</td>
+                    <td class="p-3 text-center font-bold" id="tblTotalB">$0.00</td>
+                    <td class="p-3 text-right font-bold text-emerald-400" id="tblTotalDelta">$0.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Forensic Guidance Note -->
+            <div id="compareVerdictNote" class="p-4 rounded-xl bg-dark-900 border border-slate-800 text-xs text-slate-300 leading-relaxed font-sans">
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB PANE 4: SINGLE UNIFIED AI CHATBOT -->
+      <!-- ===================================================================== -->
+      <section id="pane-chatbots" class="tab-pane hidden space-y-6">
+        
+        <div class="rounded-2xl bg-dark-900 border border-slate-800 shadow-xl flex flex-col h-[650px] overflow-hidden">
+          
+          <!-- Chat Header -->
+          <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-dark-850">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-200 text-xs shadow-md">
+                <i class="fa-solid fa-comments"></i>
+              </div>
+              <div>
+                <h3 class="text-xs font-bold text-white">Unified AI Negotiation Chatbot</h3>
+                <div class="text-[11px] text-emerald-400 flex items-center space-x-1.5 font-mono">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span>Automotive Financing & Parts Negotiation Counsel</span>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="clearChatHistory()" class="px-2.5 py-1 rounded-lg bg-dark-800 hover:bg-dark-700 text-[11px] text-slate-400 hover:text-white border border-slate-700 transition">
+              <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Reset
+            </button>
+          </div>
+
+          <!-- Quick Strategic Prompts -->
+          <div class="px-4 py-2 border-b border-slate-800/80 bg-dark-900/50 flex flex-wrap gap-2 text-xs font-mono">
+            <button onclick="sendQuickPrompt('What is the difference between dealer buy-rate APR and retail APR?')" class="px-2.5 py-1 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-300 border border-slate-700 transition text-[11px]">
+              Rate Markup vs Buy-Rate
+            </button>
+            <button onclick="sendQuickPrompt('Which dealer fees are legally mandatory vs. completely negotiable?')" class="px-2.5 py-1 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-300 border border-slate-700 transition text-[11px]">
+              Mandatory vs Junk Fees
+            </button>
+            <button onclick="sendQuickPrompt('Draft a counter-offer targeting a 5.75% APR and removal of dealer preparation fees.')" class="px-2.5 py-1 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-300 border border-slate-700 transition text-[11px]">
+              Script: 5.75% APR + Fee Cuts
+            </button>
+            <button onclick="sendQuickPrompt('How is lease Money Factor converted to Annual Percentage Rate (APR)?')" class="px-2.5 py-1 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-300 border border-slate-700 transition text-[11px]">
+              Money Factor Formula
+            </button>
+          </div>
+
+          <!-- Chat Message Thread Container -->
+          <div id="chatMessagesThread" class="flex-1 p-4 lg:p-6 overflow-y-auto space-y-4">
+            <!-- Initial Welcome Message -->
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 rounded-lg bg-dark-800 border border-slate-700 flex items-center justify-center text-slate-300 text-xs flex-shrink-0 mt-0.5">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div class="p-4 rounded-2xl rounded-tl-sm bg-dark-800 border border-slate-700/80 max-w-xl text-xs text-slate-200 leading-relaxed shadow-md space-y-2">
+                <p class="font-semibold text-white">Negotiation Assistant Ready</p>
+                <p>I provide institutional counsel on car lease and loan agreements. Ask questions regarding rate buy-downs, eliminating dealer documentation padding, converting money factors, or evaluating out-the-door (OTD) pricing.</p>
+                <p class="text-[11px] text-slate-400 font-mono">Upload a document under Contract Analysis to automatically inject your deal numbers into this session.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <div class="p-3.5 border-t border-slate-800 bg-dark-850 flex items-center space-x-2">
+            <input type="text" id="chatMessageInput" placeholder="Ask about dealer financing tactics, APR adjustments, doc fee caps..." class="flex-1 px-4 py-2.5 rounded-xl bg-dark-950 border border-slate-700 focus:border-slate-500 text-xs text-white placeholder-slate-500 outline-none transition">
+            <button id="sendChatBtn" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-600 transition flex items-center justify-center space-x-1.5 shadow-md">
+              <span>Send</span>
+              <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- ADMIN SECURITY AUDIT MODAL (Secret Key Protected) -->
+  <!-- ========================================================================= -->
+  <div id="adminModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-dark-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-dark-850">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-dark-800 border border-slate-700 text-slate-300 flex items-center justify-center text-sm">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white">System Security & Audit Telemetry</h3>
+            <p class="text-[11px] text-slate-400 font-mono">Confidential administrative telemetry stream</p>
+          </div>
+        </div>
+        <button onclick="closeAdminModal()" class="w-8 h-8 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-400 hover:text-white transition flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Password Lock Screen (Shown if not authenticated) -->
+      <div id="adminLockScreen" class="p-8 text-center space-y-4 my-auto">
+        <div class="w-12 h-12 rounded-xl bg-dark-800 border border-slate-700 mx-auto flex items-center justify-center text-slate-400 text-xl">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <div class="max-w-sm mx-auto">
+          <h4 class="text-sm font-bold text-white">Administrator Access</h4>
+          <p class="text-xs text-slate-400 mt-1">Enter your private security passcode to inspect confidential telemetry & audit logs.</p>
+        </div>
+        <div class="max-w-xs mx-auto flex space-x-2">
+          <input type="password" id="adminKeyInput" placeholder="Enter Passcode..." class="flex-1 px-3.5 py-2 rounded-xl bg-dark-950 border border-slate-700 focus:border-red-500 text-xs text-white outline-none">
+          <button onclick="verifyAdminKey()" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-xs font-semibold text-white shadow transition">
+            Unlock
+          </button>
+        </div>
+        <div id="adminAuthError" class="hidden text-xs text-red-400 font-medium font-mono">Invalid credentials. Access rejected.</div>
+      </div>
+
+      <!-- Audit Log Dashboard (Shown once verified) -->
+      <div id="adminDashboardScreen" class="hidden flex-1 overflow-hidden flex flex-col p-6 space-y-4">
+        <!-- Private Traffic & Operational Metrics -->
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div class="p-3 rounded-xl bg-dark-950 border border-slate-800">
+            <div class="text-[10px] text-blue-400 font-mono flex items-center space-x-1">
+              <i class="fa-solid fa-eye"></i>
+              <span>PAGE VIEWS</span>
+            </div>
+            <div class="text-xl font-bold text-white mt-1 tabular-nums" id="adminTotalViews">0</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-950 border border-slate-800">
+            <div class="text-[10px] text-cyan-400 font-mono flex items-center space-x-1">
+              <i class="fa-solid fa-users"></i>
+              <span>VISITORS (IPS)</span>
+            </div>
+            <div class="text-xl font-bold text-cyan-300 mt-1 tabular-nums" id="adminUniqueVisitors">0</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-950 border border-slate-800">
+            <div class="text-[10px] text-emerald-400 font-mono flex items-center space-x-1">
+              <i class="fa-solid fa-calendar-day"></i>
+              <span>TODAY VIEWS</span>
+            </div>
+            <div class="text-xl font-bold text-emerald-300 mt-1 tabular-nums" id="adminViewsToday">0</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-950 border border-slate-800">
+            <div class="text-[10px] text-slate-400 font-mono flex items-center space-x-1">
+              <i class="fa-solid fa-server"></i>
+              <span>TOTAL EVENTS</span>
+            </div>
+            <div class="text-xl font-bold text-white mt-1 tabular-nums" id="adminTotalEvents">0</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-950 border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-red-400 font-mono">ERRORS</div>
+              <div class="text-xl font-bold text-red-400 mt-1 tabular-nums" id="adminTotalErrors">0</div>
+            </div>
+            <button onclick="clearSystemAuditLogs()" class="px-2.5 py-1 rounded bg-red-600/20 hover:bg-red-600/30 text-red-400 text-[10px] font-medium transition font-mono" title="Clear ledger">
+              Purge
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="font-semibold text-slate-300">Private Traffic & System Telemetry (Admin Only)</span>
+          <div class="flex items-center space-x-2">
+            <select id="adminEventFilter" onchange="fetchAdminLogs()" class="px-2.5 py-1 rounded-lg bg-dark-950 border border-slate-700 text-slate-300 outline-none text-xs">
+              <option value="ALL">All Event Types</option>
+              <option value="PAGE_VIEW">Page Views</option>
+              <option value="CONTRACT_UPLOAD">Uploads</option>
+              <option value="VIN_LOOKUP">VIN Queries</option>
+              <option value="CONTRACT_COMPARISON">Comparisons</option>
+              <option value="CHAT_MESSAGE">Chat Messages</option>
+              <option value="COUNTER_OFFER_SCRIPT">Counter Proposals</option>
+            </select>
+            <button onclick="fetchAdminLogs()" class="px-3 py-1 rounded-lg bg-dark-800 hover:bg-dark-700 text-slate-300 transition">
+              Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Logs Table -->
+        <div class="flex-1 overflow-y-auto rounded-xl border border-slate-800 bg-dark-950 text-xs font-mono">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-dark-850 text-slate-400 sticky top-0 border-b border-slate-800">
+              <tr>
+                <th class="p-2.5">Timestamp</th>
+                <th class="p-2.5">Action</th>
+                <th class="p-2.5">IP</th>
+                <th class="p-2.5">Duration</th>
+                <th class="p-2.5">Status</th>
+                <th class="p-2.5">Payload</th>
+              </tr>
+            </thead>
+            <tbody id="adminLogsTableBody" class="divide-y divide-slate-800/60 text-slate-300">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Main JavaScript Logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
